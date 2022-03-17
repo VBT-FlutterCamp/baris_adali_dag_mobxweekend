@@ -14,7 +14,7 @@ abstract class _StoreViewModelBase with Store, BaseViewModel {
   @observable
   List<StoreModel>? storeModel;
   @observable
-  bool isLoading = false;
+  bool isLoading = true;
 
   @action
   void changeLoading() {
@@ -24,9 +24,9 @@ abstract class _StoreViewModelBase with Store, BaseViewModel {
   @action
   Future<void> storeFetch() async {
     changeLoading();
-    print('storeFecht calisti');
+
     storeModel = await storeService.storeList();
-    print(storeModel);
+
     changeLoading();
   }
 

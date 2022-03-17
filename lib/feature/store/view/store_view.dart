@@ -6,6 +6,7 @@ import 'package:mobx_weekend/core/base_view.dart';
 import '../viewmodel/store_view_model.dart';
 
 class StoreView extends StatelessWidget {
+  final String title = "Mobx-Vexana Store";
   @override
   Widget build(BuildContext context) {
     return BaseView<StoreViewModel>(
@@ -17,34 +18,39 @@ class StoreView extends StatelessWidget {
         onPageBuilder: (BuildContext context, StoreViewModel viewModel) {
           // var vm = viewModel.storeModel;
           return Scaffold(
+            appBar: AppBar(
+              title: Text(title),
+            ),
             body: Observer(
               builder: (((_) {
                 return viewModel.isLoading
-                    ? ListView.builder(
-                        itemCount: viewModel.storeModel?.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Card(
-                            elevation: 5,
-                            child: ListTile(
-                              leading: Image.network(
-                                  viewModel.storeModel?[index].image ??
-                                      'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg',
-                                  height: 50,
-                                  width: 50),
-                              title: Text(viewModel.storeModel?[index].title ??
-                                  'title null'),
-                              subtitle: Text(
-                                  viewModel.storeModel?[index].description ??
-                                      'description null'),
-                            ),
-                          );
-                        })
-                    : Center(
-                        child: Container(
-                          child: CircularProgressIndicator(),
-                        ),
-                      );
+                    ? _buildPage(viewModel)
+                    : _progressIndicator();
               })),
+            ),
+          );
+        });
+  }
+
+  Center _progressIndicator() {
+    return Center(
+      child: Container(
+        child: CircularProgressIndicator(),
+      ),
+    );
+  }
+
+  ListView _buildPage(StoreViewModel viewModel) {
+    return ListView.builder(
+        itemCount: viewModel.storeModel?.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Card(
+            elevation: 5,
+            child: ListTile(
+              leading: Image.network(viewModel.storeModel?[index].image ?? ' ',
+                  height: 50, width: 50),
+              title: Text(viewModel.storeModel?[index].title ?? ''),
+              subtitle: Text(viewModel.storeModel?[index].description ?? ''),
             ),
           );
         });

@@ -15,10 +15,10 @@ class StoreService extends IStoreService {
   @override
   Future<List<StoreModel>?> storeList() async {
     final response = await networkManager.send<StoreModel, List<StoreModel>>(
-        "/products", //path base sonraki url
+        "products?limit=5", //path base sonraki url
         parseModel: StoreModel(),
         method: RequestType.GET);
-    print('storelist ${response.data}');
+    print('storelist-> ${response.data}');
     return response.data;
   }
 }

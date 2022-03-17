@@ -1,6 +1,6 @@
 import 'package:vexana/vexana.dart';
 
-class StoreModel extends INetworkModel {
+class StoreModel extends INetworkModel<StoreModel> {
   int? id;
   String? title;
   double? price;
@@ -27,15 +27,28 @@ class StoreModel extends INetworkModel {
     return data;
   }
 
-  @override
-  fromJson(Map<String, dynamic> json) {
-    StoreModel(
-      id: json["id"],
-      title: json["title"],
-      price: json["price"].toDouble(),
-      description: json["description"],
-      category: json["category"],
-      image: json["image"],
-    );
+  StoreModel.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    title = json['title'];
+    price = json['price'];
+    description = json['description'];
+    category = json['category'];
+    image = json['image'];
   }
+
+  @override
+  StoreModel fromJson(Map<String, dynamic> json) {
+    return StoreModel.fromJson(json);
+  }
+  // @override
+  // fromJson(Map<String, dynamic> json) {
+  //   StoreModel(
+  //     id: json["id"],
+  //     title: json["title"],
+  //     price: json["price"].toDouble(),
+  //     description: json["description"],
+  //     category: json["category"],
+  //     image: json["image"],
+  //   );
+  // }
 }
