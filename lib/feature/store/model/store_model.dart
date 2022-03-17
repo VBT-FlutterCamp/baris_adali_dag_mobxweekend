@@ -1,6 +1,15 @@
 import 'package:vexana/vexana.dart';
 
 class StoreModel extends INetworkModel<StoreModel> {
+  StoreModel({
+    this.id,
+    this.title,
+    this.price,
+    this.description,
+    this.category,
+    this.image,
+  });
+
   int? id;
   String? title;
   double? price;
@@ -8,47 +17,24 @@ class StoreModel extends INetworkModel<StoreModel> {
   String? category;
   String? image;
 
-  StoreModel(
-      {this.id,
-      this.title,
-      this.price,
-      this.description,
-      this.category,
-      this.image});
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['title'] = this.title;
-    data['price'] = this.price;
-    data['description'] = this.description;
-    data['category'] = this.category;
-    data['image'] = this.image;
-    return data;
-  }
-
-  StoreModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    title = json['title'];
-    price = json['price'];
-    description = json['description'];
-    category = json['category'];
-    image = json['image'];
-  }
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "title": title,
+        "price": price,
+        "description": description,
+        "category": category,
+        "image": image,
+      };
 
   @override
   StoreModel fromJson(Map<String, dynamic> json) {
-    return StoreModel.fromJson(json);
+    return StoreModel(
+      id: json["id"],
+      title: json["title"],
+      price: json["price"].toDouble(),
+      description: json["description"],
+      category: json["category"],
+      image: json["image"],
+    );
   }
-  // @override
-  // fromJson(Map<String, dynamic> json) {
-  //   StoreModel(
-  //     id: json["id"],
-  //     title: json["title"],
-  //     price: json["price"].toDouble(),
-  //     description: json["description"],
-  //     category: json["category"],
-  //     image: json["image"],
-  //   );
-  // }
 }
